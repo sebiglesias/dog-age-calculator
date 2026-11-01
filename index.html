@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dog Age in Human Years Calculator & Food Portion Estimator | Veterinary Guide</title>
+  <meta name="description" content="Calculate your dog's true age in human years using the scientific AVMA veterinary formula based on breed size and weight. Includes daily food portion calculator in cups and life stage guide.">
+  <meta name="keywords" content="dog age calculator, dog years to human years, how old is my dog, dog food calculator cups per day, pet age chart, puppy age calculator">
+  <link rel="canonical" href="https://sebiglesias.com.ar/dog-age-calculator/">
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#D97706">
+  <link rel="apple-touch-icon" href="icon.svg">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Dog Age in Human Years Calculator & Food Portion Guide">
+  <meta property="og:description" content="Calculate your dog's actual biological age in human years based on breed size, plus daily food portions.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sebiglesias.com.ar/dog-age-calculator/">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Dog Age Calculator (AVMA Veterinary Formula)">
+  <meta name="twitter:description" content="Scientific dog-to-human age conversion by breed weight and daily feeding calculator.">
+
+  <!-- Google tag (gtag.js) GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2BNDBQP0W7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2BNDBQP0W7');
+  </script>
+
+  <!-- Google AdSense -->
+  <meta name="google-adsense-account" content="ca-pub-3381238987477190">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3381238987477190" crossorigin="anonymous"></script>
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Dog Age in Human Years Calculator",
+        "url": "https://sebiglesias.com.ar/dog-age-calculator/",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "All",
+        "description": "Scientific veterinary calculator to convert canine and feline age into biological human years based on adult weight and breed category.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Why is the 1 dog year = 7 human years rule a myth?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The traditional 'rule of 7' is an oversimplification. Dogs reach full skeletal and sexual maturity by age 2 (equivalent to approximately 24 human years). Afterward, aging slows down and varies significantly by size: small dogs age at roughly 4 human years per calendar year, while giant breeds age at 7 to 8 human years per calendar year."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How many cups of food should a dog eat daily?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "An adult dog with normal activity requires approximately 20 to 30 calories per pound of body weight. For average dry kibble (~375 kcal/cup), a 50 lb dog typically eats between 2.25 to 2.75 cups per day, split into morning and evening meals."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="wrap">
+    <div class="backlink-bar">
+      <a href="https://sebiglesias.com.ar" class="backlink">← sebiglesias.com.ar</a>
+    </div>
+
+    <header class="header">
+      <div class="header-badge">🐾 Pet Health & Longevity Utility</div>
+      <h1>Dog Age Calculator<span class="accent">.</span></h1>
+      <p class="sub">Biological human age by breed weight · daily feeding guide & life stages</p>
+    </header>
+
+    <!-- Pet Switcher -->
+    <div class="pet-tabs">
+      <button type="button" class="pet-tab active" data-pet="dog">🐶 Dog</button>
+      <button type="button" class="pet-tab" data-pet="cat">🐱 Cat</button>
+    </div>
+
+    <!-- Big Age Result Card -->
+    <section class="card hero-card">
+      <div class="hero-top">
+        <div class="hero-col">
+          <span class="hero-sublabel">Biological Human Age</span>
+          <div class="hero-val-wrap">
+            <span class="hero-number" id="resHumanYears">36</span>
+            <span class="hero-unit">years old</span>
+          </div>
+        </div>
+        <div class="hero-divider"></div>
+        <div class="hero-col highlight">
+          <span class="hero-sublabel">Daily Food Portion</span>
+          <div class="hero-val-wrap">
+            <span class="hero-number" id="resCups">2.5</span>
+            <span class="hero-unit">cups/day</span>
+          </div>
+          <span class="hero-detail" id="resDailyGrams">~260 grams / day</span>
+        </div>
+      </div>
+
+      <div class="life-stage-badge" id="resLifeStageBadge">
+        Mature Adult · Full Physical Prime
+      </div>
+    </section>
+
+    <!-- Inputs Card -->
+    <div class="inputs-grid">
+      <section class="card">
+        <h2>1. Pet Profile & Age</h2>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label for="petAgeYears">Calendar Years</label>
+            <input type="number" id="petAgeYears" value="5" min="0" max="25" step="1">
+          </div>
+          <div class="field-group">
+            <label for="petAgeMonths">Months</label>
+            <input type="number" id="petAgeMonths" value="0" min="0" max="11" step="1">
+          </div>
+        </div>
+
+        <div class="field-group" id="groupBreedSize">
+          <label for="breedSizeSelect">Breed Size (Adult Weight)</label>
+          <select id="breedSizeSelect">
+            <option value="small">Small Breed (Under 20 lbs / 9 kg)</option>
+            <option value="medium" selected>Medium Breed (21 – 50 lbs / 10 – 22 kg)</option>
+            <option value="large">Large Breed (51 – 90 lbs / 23 – 40 kg)</option>
+            <option value="giant">Giant Breed (90+ lbs / 41+ kg)</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label for="petWeightLbs">Pet Weight (Lbs)</label>
+          <input type="number" id="petWeightLbs" value="45" min="2" max="220" step="1">
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>2. Nutrition & Activity Level</h2>
+
+        <div class="field-group">
+          <label for="activityLevelSelect">Activity Level</label>
+          <select id="activityLevelSelect">
+            <option value="low">Low (Couch potato / senior)</option>
+            <option value="moderate" selected>Moderate (Daily 45-min walks)</option>
+            <option value="high">High (Working dog, agility, running)</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label for="kibbleBagLbs">Kibble Bag Size (Lbs)</label>
+          <select id="kibbleBagLbs">
+            <option value="15">Small Bag (15 lbs)</option>
+            <option value="30" selected>Large Bag (30 lbs)</option>
+            <option value="40">XL Breeder Bag (40 lbs)</option>
+          </select>
+        </div>
+
+        <div class="nutrition-summary-box">
+          <div class="nutri-item">
+            <span class="nutri-label">Bag Lasts Approx:</span>
+            <strong class="nutri-val" id="resBagDuration">~52 days</strong>
+          </div>
+          <div class="nutri-item">
+            <span class="nutri-label">Meals Recommended:</span>
+            <strong class="nutri-val" id="resPortions">2 meals / day</strong>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Wellness & Life Stage Advice -->
+    <section class="card">
+      <h2>Veterinary Health Guidelines for This Stage</h2>
+      <div class="vet-advice-box">
+        <p id="resVetCheck">Annual routine wellness exam, heartworm preventative, and core DHPP/Rabies boosters.</p>
+      </div>
+    </section>
+
+    <!-- AdSense Responsive Placement -->
+    <div class="adsense-wrap" style="text-align: center; margin: 2rem 0;">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-3381238987477190"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <!-- FAQ Section -->
+    <section class="card faq-section">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <h3>At what age is a dog considered a Senior?</h3>
+        <p>It depends on size: giant breeds (Great Danes, Mastiffs) reach senior status around age 5 to 6, large breeds around age 7, and small toy breeds around age 10 to 11.</p>
+      </div>
+      <div class="faq-item">
+        <h3>How many times a day should adult dogs eat?</h3>
+        <p>Vets recommend feeding adult dogs twice daily (morning and evening). Feeding once a day can lead to acid reflux and increases the risk of Gastric Dilatation-Volvulus (bloat) in deep-chested dogs.</p>
+      </div>
+    </section>
+
+    <footer>
+      <p>Part of the <a href="https://sebiglesias.com.ar">sebiglesias.com.ar</a> utility tools suite.</p>
+      <p class="copy">Free veterinary nutrition & age utility · Consult your vet for medical advice</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
