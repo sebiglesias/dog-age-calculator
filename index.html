@@ -7,6 +7,17 @@
   <meta name="description" content="Calculate your dog's true age in human years using the scientific AVMA veterinary formula based on breed size and weight. Includes daily food portion calculator in cups and life stage guide.">
   <meta name="keywords" content="dog age calculator, dog years to human years, how old is my dog, dog food calculator cups per day, pet age chart, puppy age calculator">
   <link rel="canonical" href="https://sebiglesias.com.ar/dog-age-calculator/">
+  <link rel="alternate" hreflang="en" href="https://sebiglesias.com.ar/dog-age-calculator/">
+  <link rel="alternate" hreflang="es" href="https://sebiglesias.com.ar/dog-age-calculator/?lang=es">
+  <link rel="alternate" hreflang="de" href="https://sebiglesias.com.ar/dog-age-calculator/?lang=de">
+  <link rel="alternate" hreflang="fr" href="https://sebiglesias.com.ar/dog-age-calculator/?lang=fr">
+  <link rel="alternate" hreflang="it" href="https://sebiglesias.com.ar/dog-age-calculator/?lang=it">
+  <link rel="alternate" hreflang="pt" href="https://sebiglesias.com.ar/dog-age-calculator/?lang=pt">
+  <link rel="alternate" hreflang="nl" href="https://sebiglesias.com.ar/dog-age-calculator/?lang=nl">
+  <link rel="alternate" hreflang="sv" href="https://sebiglesias.com.ar/dog-age-calculator/?lang=sv">
+  <link rel="alternate" hreflang="da" href="https://sebiglesias.com.ar/dog-age-calculator/?lang=da">
+  <link rel="alternate" hreflang="pl" href="https://sebiglesias.com.ar/dog-age-calculator/?lang=pl">
+  <link rel="alternate" hreflang="x-default" href="https://sebiglesias.com.ar/dog-age-calculator/">
 
   <!-- PWA -->
   <link rel="manifest" href="manifest.json">
@@ -88,8 +99,20 @@
 </head>
 <body>
   <div class="wrap">
-    <div class="backlink-bar">
+    <div class="backlink-bar" style="display:flex;align-items:center;justify-content:space-between">
       <a href="https://sebiglesias.com.ar" class="backlink">← sebiglesias.com.ar</a>
+      <select id="lang-select" aria-label="Language" style="background:#24221C;border:1px solid rgba(242,239,230,.18);color:#F2EFE6;font-family:'JetBrains Mono',monospace;font-size:.72rem;padding:3px 6px;border-radius:3px;cursor:pointer;margin-left:auto">
+  <option value="en">🇺🇸 EN</option>
+  <option value="es">🇪🇸 ES</option>
+  <option value="de">🇩🇪 DE</option>
+  <option value="fr">🇫🇷 FR</option>
+  <option value="it">🇮🇹 IT</option>
+  <option value="pt">🇵🇹 PT</option>
+  <option value="nl">🇳🇱 NL</option>
+  <option value="sv">🇸🇪 SV</option>
+  <option value="da">🇩🇰 DA</option>
+  <option value="pl">🇵🇱 PL</option>
+</select>
     </div>
 
     <header class="header">
@@ -275,5 +298,41 @@
   </div>
 
   <script src="app.js"></script>
+
+<script>
+/* I18N_AUTO_ENGINE */
+(function(){
+  const DICT = {"en": {"title": "Dog Age in Human Years Calculator<span class='accent'>.</span>", "sub": "AVMA breed weight curve, life stage & daily kibble feeding guide"}, "es": {"title": "Calculadora Edad de Perro en Años Humanos<span class='accent'>.</span>", "sub": "Fórmula veterinaria según tamaño de raza, etapa vital y ración diaria"}, "de": {"title": "Hundealter in Menschenjahre Rechner<span class='accent'>.</span>", "sub": "Tierärztliche Formel nach Gewichtsklasse, Lebensphase & Futtermenge"}, "fr": {"title": "Calculateur Âge du Chien en Années Humaines<span class='accent'>.</span>", "sub": "Courbe vétérinaire par taille de race, stade de vie et ration de croquettes"}, "it": {"title": "Calcolatore Età Cane in Anni Umani<span class='accent'>.</span>", "sub": "Formula scientifica per taglia, fase di vita e grammi di crocchette"}, "pt": {"title": "Calculadora Idade do Cachorro em Anos Humanos<span class='accent'>.</span>", "sub": "Curva veterinária por porte da raça, fase da vida e porção de ração"}, "nl": {"title": "Hondenleeftijd in Mensenjaren Calculator<span class='accent'>.</span>", "sub": "Wetenschappelijke berekening op basis van formaat, levensfase en voeding"}, "sv": {"title": "Hundålder i Människoår Kalkylator<span class='accent'>.</span>", "sub": "Veterinärformel efter rasstorlek, livsfas och daglig fodermängd"}, "da": {"title": "Hundealder i Menneskeår Beregner<span class='accent'>.</span>", "sub": "Videnskabelig kurve efter hundens størrelse, livsfase og fodermængde"}, "pl": {"title": "Kalkulator Wieku Psa na Ludzkie Lata<span class='accent'>.</span>", "sub": "Wzór weterynaryjny według wagi rasy, etapu życia i porcji karmy"}};
+  const h1El = document.querySelector('h1');
+  const subEl = document.querySelector('.sub') || document.querySelector('header p');
+  const selEl = document.getElementById('lang-select');
+  function applyLang(lang) {
+    const entry = DICT[lang] || DICT.en;
+    document.documentElement.lang = lang;
+    if (h1El && entry.title) h1El.innerHTML = entry.title;
+    if (subEl && entry.sub) subEl.textContent = entry.sub;
+    if (lang !== 'en' && entry.sub) {
+      document.title = (h1El ? h1El.textContent : '') + ' — ' + entry.sub;
+    }
+  }
+  const params = new URLSearchParams(window.location.search);
+  const init = params.get('lang') || localStorage.getItem('dog-age-calculator-lang') || 'en';
+  const valid = DICT[init] ? init : 'en';
+  if (selEl) {
+    selEl.value = valid;
+    selEl.addEventListener('change', function(e) {
+      const nl = e.target.value;
+      localStorage.setItem('dog-age-calculator-lang', nl);
+      const u = new URL(window.location.href);
+      if (nl === 'en') u.searchParams.delete('lang');
+      else u.searchParams.set('lang', nl);
+      window.history.replaceState({}, '', u);
+      applyLang(nl);
+    });
+  }
+  applyLang(valid);
+})();
+</script>
+
 </body>
 </html>
